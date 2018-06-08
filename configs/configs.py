@@ -3,9 +3,9 @@ import os
 
 input_tensor_names = ['image_tensor:0']
 output_tensor_names = ['detection_boxes:0', 'detection_scores:0', 'detection_classes:0', 'num_detections:0']
-device = '/cpu:0'
+device = '/gpu:0'
 
-BASE_PATH = '/'.join(os.getcwd().split('/')[:-1])
+BASE_PATH = '/'.join(os.getcwd().split('/')[:])
 SSD_MOBILE_NET_MODEL_PATH = '{}/pretrained/ssd_mobilenet_v1_coco_11_06_2017/frozen_inference_graph.pb'.format(BASE_PATH)
 LABEL_FP_2D = '{}/configs/label.pbtxt'.format(BASE_PATH)
 FPNET_MODEL_PATH = '{}/pretrained/log_v1/model.ckpt'.format(BASE_PATH)

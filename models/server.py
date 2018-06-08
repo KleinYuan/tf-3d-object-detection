@@ -83,7 +83,7 @@ class Server(object):
 			centers_in_velo_frame = np.zeros_like(centers)
 			corners_3d_in_velo_frame[:, 0:3] = self.frt_proposal_server.project_rect_to_velo(corners_3d[:, 0:3])
 			centers_in_velo_frame[:, 0:3] = self.frt_proposal_server.project_rect_to_velo(centers[:, 0:3])
-
-			utils.viz(inputs['pclds'], centers_in_velo_frame, corners_3d_in_velo_frame, f_prop_velo_all[idx])
+			utils.viz_single(f_prop_velo_all[idx])
+			utils.viz(f_prop_velo_all[idx], centers_in_velo_frame, corners_3d_in_velo_frame, inputs['pclds'])
 
 		self.in_progress = False
