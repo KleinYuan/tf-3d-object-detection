@@ -1,13 +1,23 @@
 import numpy as np
+import os
 
 input_tensor_names = ['image_tensor:0']
 output_tensor_names = ['detection_boxes:0', 'detection_scores:0', 'detection_classes:0', 'num_detections:0']
-SSD_MOBILE_NET_MODEL_PATH = 'frozen_inference_graph.pb'
 device = '/cpu:0'
+
+BASE_PATH = '/'.join(os.getcwd().split('/')[:-1])
+SSD_MOBILE_NET_MODEL_PATH = '{}/pretrained/ssd_mobilenet_v1_coco_11_06_2017/frozen_inference_graph.pb'.format(BASE_PATH)
+LABEL_FP_2D = '{}/configs/label.pbtxt'.format(BASE_PATH)
+FPNET_MODEL_PATH = '{}/pretrained/log_v1/model.ckpt'.format(BASE_PATH)
+
+TEST_DATA_FP = {
+	'img': '{}/example_data/1.png'.format(BASE_PATH),
+	'pclds': '{}/example_data/1.bin'.format(BASE_PATH)
+}
 
 # STUM PARAM
 CALIB_PARAM = {
-	'P2': (7.070493000000e+02, 0.000000000000e+00, 6.040814000000e+02, 4.575831000000e+01, 0.000000000000e+00,
+	'P': (7.070493000000e+02, 0.000000000000e+00, 6.040814000000e+02, 4.575831000000e+01, 0.000000000000e+00,
 	       7.070493000000e+02, 1.805066000000e+02, -3.454157000000e-01, 0.000000000000e+00, 0.000000000000e+00,
 	       1.000000000000e+00, 4.981016000000e-03),
 	'Tr_velo_to_cam': (
@@ -18,11 +28,11 @@ CALIB_PARAM = {
 	            -4.037671000000e-03, 8.470675000000e-03, 4.123522000000e-03, 9.999556000000e-01)
 }
 
+detector_2d_size = 320
 BATCH_SIZE = 1
 NUM_POINT = 1024
 NUM_CHANNEL = 4
 NUM_HEADING_BIN = 12
-FPNET_MODEL_PATH = 'pretrained/log_v1/model.ckpt'
 img_shape = (1224, 370)
 
 g_type_mean_sizeNUM_HEADING_BIN = 12

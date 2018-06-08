@@ -1,15 +1,11 @@
-import importlib
 import tensorflow as tf
-
-MODEL_PATH = 'pretrained/log_v1/model.ckpt'
-DATA_PATH = 'kitti/frustum_carpedcyc_val_rgb_detection.pickle'
+import frustum_pointnets_v1 as fp_nets
 
 BATCH_SIZE = 1
 NUM_POINT = 1024
 NUM_CHANNEL = 4
 NUM_HEADING_BIN = 12
 
-fp_nets = importlib.import_module('frustum_pointnets_v1')
 tf.logging.set_verbosity(tf.logging.INFO)
 
 

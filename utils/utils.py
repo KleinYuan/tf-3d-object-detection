@@ -1,9 +1,9 @@
 import numpy as np
-import mayavi.mlab as mlab
 from configs import configs
 
 
 def viz(pc, centers, corners_3d, pc_origin):
+	import mayavi.mlab as mlab
 	fig = mlab.figure(figure=None, bgcolor=(0.4, 0.4, 0.4),
 	                  fgcolor=None, engine=None, size=(500, 500))
 	mlab.points3d(pc[:, 0], pc[:, 1], pc[:, 2], mode='sphere',
@@ -14,6 +14,20 @@ def viz(pc, centers, corners_3d, pc_origin):
 	              color=(1, 1, 0), scale_factor=0.3, figure=fig)
 	mlab.points3d(pc_origin[:, 0], pc_origin[:, 1], pc_origin[:, 2], mode='sphere',
 	              color=(0, 1, 0), scale_factor=0.05, figure=fig)
+	'''
+        Green points are original PC from KITTI
+        White points are PC feed into the network
+        Red point is the predicted center
+        Yellow point the post-processed predicted bounding box corners
+    '''
+	raw_input("Press any key to continue")
+
+def viz_single(pc):
+	import mayavi.mlab as mlab
+	fig = mlab.figure(figure=None, bgcolor=(0.4, 0.4, 0.4),
+	                  fgcolor=None, engine=None, size=(500, 500))
+	mlab.points3d(pc[:, 0], pc[:, 1], pc[:, 2], mode='sphere',
+	              colormap='gnuplot', scale_factor=0.1, figure=fig)
 	'''
         Green points are original PC from KITTI
         White points are PC feed into the network

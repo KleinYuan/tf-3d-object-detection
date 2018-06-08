@@ -59,7 +59,7 @@ class BaseServer(object):
 
         with self.graph.as_default():
             self._set_feed_dict(data=data)
-            print self.output_ops
+            print("[Base Server] output ops: {}".format(self.output_ops))
             self.prediction = self.session.run(self.output_ops, feed_dict=self.feed_dict)
         self.in_progress = False
 
