@@ -14,11 +14,12 @@ class FPNetPredictor(object):
 
     BATCH_SIZE = configs.FPNET['BATCH_SIZE']
     NUM_POINT = configs.FPNET['NUM_POINT']
+    DEVICE = configs.FPNET['device']
 
     def __init__(self, model_fp):
         tf.logging.info("Initializing FPNetPredictor Instance ...")
         self.model_fp = model_fp
-        with tf.device('/gpu:0'):
+        with tf.device(self.DEVICE):
             self._init_session()
             self._init_graph()
         tf.logging.info("Initialized FPNetPredictor Instance!")
