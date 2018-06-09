@@ -77,7 +77,7 @@ As you may see, this project combined 2 Deep Neural Networks together. Therefore
 | ------------ | :--------------: |
 | [Download Link](https://github.com/KleinYuan/tf-object-detection/blob/master/README.md#introduction)| [Download v1 and v2 is not supported yet](https://shapenet.cs.stanford.edu/media/frustum_pointnets_snapshots.zip) (originally from [here](https://github.com/Dark-Rinnegan/frustum-pointnets/tree/app#training-frustum-pointnets))|
 
-Then, unzip them and put them under [`pretrained`](https://github.com/KleinYuan/tf-3d-object-detection/tree/master/pretrained) folder. Also, renamed the `checkpoint` file to `checkpoint.txt`.
+Then, unzip them and put them under [`pretrained`](https://github.com/KleinYuan/tf-3d-object-detection/tree/master/pretrained) folder. Also, renamed the `checkpoint.txt` file to `checkpoint` even though it's useless and you cannot freeze it :unhappy: .
 
 
 The folder will look like this:
@@ -86,7 +86,7 @@ The folder will look like this:
 --tf-3d-object-detection
   |-- pretrained
       |--log_v1
-          |-- checkpoint.txt (originally named checkpoint)
+          |-- checkpoint (originally named checkpoint.txt)
           |-- log_train.txt
           |-- model.ckpt.data-00000-of-00001
           |-- model.ckpt
