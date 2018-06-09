@@ -1,10 +1,6 @@
 import tensorflow as tf
 import frustum_pointnets_v1 as fp_nets
-
-BATCH_SIZE = 1
-NUM_POINT = 1024
-NUM_CHANNEL = 4
-NUM_HEADING_BIN = 12
+from configs import configs
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -15,6 +11,9 @@ class FPNetPredictor(object):
     sess = None
     saver = None
     ops = None
+
+    BATCH_SIZE = configs.FPNET['BATCH_SIZE']
+    NUM_POINT = configs.FPNET['NUM_POINT']
 
     def __init__(self, model_fp):
         tf.logging.info("Initializing FPNetPredictor Instance ...")
@@ -38,7 +37,7 @@ class FPNetPredictor(object):
             pointclouds_pl, one_hot_vec_pl, labels_pl, centers_pl, \
             heading_class_label_pl, heading_residual_label_pl, \
             size_class_label_pl, size_residual_label_pl = \
-                fp_nets.placeholder_inputs(BATCH_SIZE, NUM_POINT)
+                fp_nets.placeholder_inputs(self.BATCH_SIZE, self.NUM_POINT)
 
             is_training_pl = tf.placeholder(tf.bool, shape=())
             end_points = fp_nets.get_model(pointclouds_pl, one_hot_vec_pl, is_training_pl)

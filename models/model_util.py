@@ -10,6 +10,11 @@ import tf_util
 # Global Constants
 # -----------------
 
+from configs import configs
+
+NUM_HEADING_BIN = configs.FPNET['NUM_HEADING_BIN']
+NUM_SIZE_CLUSTER = configs.FPNET['NUM_SIZE_CLUSTER']
+NUM_OBJECT_POINT = configs.FPNET['NUM_OBJECT_POINT']
 NUM_HEADING_BIN = 12
 NUM_SIZE_CLUSTER = 8 # one cluster for each type
 NUM_OBJECT_POINT = 512

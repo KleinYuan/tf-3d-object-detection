@@ -8,10 +8,10 @@ sys.path.append("..")
 import libs.label_map_util
 
 
-class SSDMobileNet(base_server.BaseServer):
+class Detector2D(base_server.BaseServer):
 	img_height = 0
 	img_width = 0
-	img_resize_size = configs.detector_2d_size
+	img_resize_size = configs.DETECTOR_2D_FEED_IMG_SIZE
 	num_classes = 90
 	labels_fp = configs.LABEL_FP_2D
 	g_type2onehotclass_coco = {'car': 0, 'person': 1, 'bicycle': 2}
@@ -20,18 +20,18 @@ class SSDMobileNet(base_server.BaseServer):
 	image_received_resized = None
 
 	def __init__(self, *args, **kwargs):
-		super(SSDMobileNet, self).__init__(*args, **kwargs)
+		super(Detector2D, self).__init__(*args, **kwargs)
 		self._load_labels()
 
 	def inference_vebose(self, data):
 		self.image_received = cv2.cvtColor(data, cv2.COLOR_RGB2BGR)
 		self.img_height, self.img_width, _ = self.image_received.shape
 		self.image_received_resized = cv2.resize(self.image_received, (self.img_resize_size, self.img_resize_size))
-		print('[SSBMobileNet] Resizing image from {} to {}'.format(self.image_received.shape, self.image_received_resized.shape))
+		print('[Detector2D]Resizing image from {} to {}'.format(self.image_received.shape, self.image_received_resized.shape))
 		self.image_feed = np.expand_dims(self.image_received_resized, axis=0)
 		self.inference([self.image_feed])
 		bboxes_2d, one_hot_vectors = self.post_process()
-		print('[SSDMobileNet] boxes 2d are {}\n                one_hot_vectors are {}'.format(bboxes_2d, one_hot_vectors))
+		print('[Detector2D]boxes 2d are {}\n                one_hot_vectors are {}'.format(bboxes_2d, one_hot_vectors))
 		return bboxes_2d, one_hot_vectors
 
 	def _load_labels(self):
@@ -44,7 +44,7 @@ class SSDMobileNet(base_server.BaseServer):
 	def _get_one_hot_vet(self, cls):
 		one_hot_vec = np.zeros((3))
 		one_hot_vec[self.g_type2onehotclass_coco[cls]] = 1
-		print('[SSDMobileNet] Converting {} to {}'.format(cls, one_hot_vec))
+		print('[Detector2D]Converting {} to {}'.format(cls, one_hot_vec))
 		return one_hot_vec
 
 	def post_process(self, threshold=0.2):
@@ -52,11 +52,11 @@ class SSDMobileNet(base_server.BaseServer):
 		filtered_results = []
 		bb_o = []
 		one_hot_vectors = []
-		print('[SSDMobileNet] Number of detetcions is {}'.format(num_detections))
+		print('[Detector2D]Number of detetcions is {}'.format(num_detections))
 		for i in range(0, num_detections):
 			score = scores[0][i]
 			if score >= threshold:
-				print('[SSDMobileNet] Found a detected class with score higher than %s' % score)
+				print('[Detector2D]Found a detected class with score higher than %s' % score)
 				y1, x1, y2, x2 = boxes[0][i]
 				y1_o = int(y1 * self.img_height)
 				x1_o = int(x1 * self.img_width)
@@ -70,7 +70,7 @@ class SSDMobileNet(base_server.BaseServer):
 					"img_size": [self.img_height, self.img_width],
 					"class": predicted_class
 				})
-				print('[SSDMobileNet] %s: %s, %s' % (predicted_class, score, [x1_o, y1_o, x2_o, y2_o]))
+				print('[Detector2D]%s: %s, %s' % (predicted_class, score, [x1_o, y1_o, x2_o, y2_o]))
 				bb_o.append([x1_o, y1_o, x2_o, y2_o])
 				one_hot_vectors.append(self._get_one_hot_vet(predicted_class))
 		self._viz(filtered_results)

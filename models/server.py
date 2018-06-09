@@ -1,4 +1,4 @@
-import frustum_point_net, frustum_proposal, ssd_mobile_net
+import frustum_point_net, frustum_proposal, detector_2d
 import numpy as np
 from configs import configs
 from utils import utils
@@ -11,13 +11,13 @@ class Server(object):
 	detector_3d = None
 	in_progress = False
 	CALIB_PARAM = configs.CALIB_PARAM
-	NUM_POINT = configs.NUM_POINT
-	FPNET_MODEL_PATH = configs.FPNET_MODEL_PATH
-	NUM_HEADING_BIN = configs.NUM_HEADING_BIN
-	SSD_MOBILE_NET_MODEL_PATH = configs.SSD_MOBILE_NET_MODEL_PATH
-	input_tensor_names = configs.input_tensor_names
-	output_tensor_names = configs.output_tensor_names
-	device = configs.device
+	NUM_POINT = configs.FPNET['NUM_POINT']
+	DETECTOR_3D_MODEL_FP = configs.DETECTOR_3D_MODEL_FP
+	NUM_HEADING_BIN = configs.FPNET['NUM_HEADING_BIN']
+	DETECTOR_2D_MODEL_FP = configs.DETECTOR_2D_MODEL_FP
+	input_tensor_names = configs.BASE_SERVER['input_tensor_names']
+	output_tensor_names = configs.BASE_SERVER['output_tensor_names']
+	device = configs.BASE_SERVER['device']
 
 	def __init__(self):
 		self._load_params()
@@ -35,15 +35,15 @@ class Server(object):
 
 	def _init_detector_2d(self):
 		print('[Server] Init image 2d detection server ...')
-		self.detector_2d = ssd_mobile_net.SSDMobileNet(
-			model_fp=self.SSD_MOBILE_NET_MODEL_PATH,
+		self.detector_2d = detector_2d.Detector2D(
+			model_fp=self.DETECTOR_2D_MODEL_FP,
 			input_tensor_names=self.input_tensor_names,
 			output_tensor_names=self.output_tensor_names,
 			device=self.device)
 
 	def _init_detector_3d(self):
 		print('[Server] Init 3d object detection server ...')
-		self.detector_3d = frustum_point_net.FPNetPredictor(model_fp=self.FPNET_MODEL_PATH)
+		self.detector_3d = frustum_point_net.FPNetPredictor(model_fp=self.DETECTOR_3D_MODEL_FP)
 
 	def predict(self, inputs):
 		print('[Server | Init] Run prediction ...')
