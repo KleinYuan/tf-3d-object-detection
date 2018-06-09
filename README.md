@@ -1,16 +1,6 @@
 # Summary
 
-```
-Dude: What does this repo do?
-
-Another Dude (Me): Input 1) Camera frame, 2)Points Cloud Data, and 3) Calibration Matrix between 1&2, this repo gifts you a server to output 3D Bounding Boxes for each Objects
-
-Dude: How does it work?
-
-Another Dude (Me): A 2D object detector found a bounding box, use calibration info to create frustum proposal, then run frustum point net to predict 3D Bounding Box
-
-```
-
+![3d](https://user-images.githubusercontent.com/8921629/41188550-0ed19016-6b74-11e8-92fb-193a8160d0e2.png)
 
 (Below is from a data in [KITTI 3D Object Detection Dataset](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d))
 
@@ -46,7 +36,7 @@ pip install -r requirements.txt
 
 If you meet error install say `opencv`, do `conda install opencv` if you use Anaconda. Otherwise, dude, build from source and let's call it a day.
 
-### 3. Pick as 2D Object Detection Model
+### 3. Pick a 2D Object Detection Model
 
 In here we support 5 different 2D Detection models:
 
@@ -58,10 +48,10 @@ In here we support 5 different 2D Detection models:
 | [faster_rcnn_resnet101_coco](http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_coco_11_06_2017.tar.gz) | medium | 32 | Boxes |
 | [faster_rcnn_inception_resnet_v2_atrous_coco](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_resnet_v2_atrous_coco_11_06_2017.tar.gz) | slow | 37 | Boxes |
 
-Pick one of those that makes you feel good, and find it in the list -- `_DETECTOR_2D_OPTIONS` in `configs/configs`,
-then replace it with the value of `_DETECTOR_2D_MODEL_NAME`.
+Pick one of those that makes you feel good, and find it in the list -- [`_DETECTOR_2D_OPTIONS` in `configs/configs`](https://github.com/KleinYuan/tf-3d-object-detection/blob/master/configs/configs.py#L17),
+then replace it with the value of [`_DETECTOR_2D_MODEL_NAME`](https://github.com/KleinYuan/tf-3d-object-detection/blob/master/configs/configs.py#L16).
 
-And by default, I use `ssd_mobilenet_v1_coco_11_06_2017` due to it's fast.
+And by default, I use [`ssd_mobilenet_v1_coco_11_06_2017`](https://github.com/KleinYuan/tf-3d-object-detection/blob/master/configs/configs.py#L16) due to it's fast.
 
 ### 4. Download Test Data
 
@@ -87,7 +77,7 @@ As you may see, this project combined 2 Deep Neural Networks together. Therefore
 | ------------ | :--------------: |
 | [Download Link](https://github.com/KleinYuan/tf-object-detection/blob/master/README.md#introduction)| [Download v1 and v2 is not supported yet](https://shapenet.cs.stanford.edu/media/frustum_pointnets_snapshots.zip) (originally from [here](https://github.com/Dark-Rinnegan/frustum-pointnets/tree/app#training-frustum-pointnets))|
 
-Then, unzip them and put them under `pretrained` folder. Also, renamed the `checkpoint` file to `checkpoint.txt`.
+Then, unzip them and put them under [`pretrained`](https://github.com/KleinYuan/tf-3d-object-detection/tree/master/pretrained) folder. Also, renamed the `checkpoint` file to `checkpoint.txt`.
 
 
 The folder will look like this:
