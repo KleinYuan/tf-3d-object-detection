@@ -15,9 +15,7 @@ from configs import configs
 NUM_HEADING_BIN = configs.FPNET['NUM_HEADING_BIN']
 NUM_SIZE_CLUSTER = configs.FPNET['NUM_SIZE_CLUSTER']
 NUM_OBJECT_POINT = configs.FPNET['NUM_OBJECT_POINT']
-NUM_HEADING_BIN = 12
-NUM_SIZE_CLUSTER = 8 # one cluster for each type
-NUM_OBJECT_POINT = 512
+
 g_type2class={'Car':0, 'Van':1, 'Truck':2, 'Pedestrian':3,
               'Person_sitting':4, 'Cyclist':5, 'Tram':6, 'Misc':7}
 g_class2type = {g_type2class[t]:t for t in g_type2class}

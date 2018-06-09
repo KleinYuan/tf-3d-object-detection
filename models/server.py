@@ -52,7 +52,7 @@ class Server(object):
 		self.in_progress = True
 
 		print('[Server | Step1] Run 2d bounding box detection ...')
-		bboxes_2d, one_hot_vectors = self.detector_2d.inference_vebose(inputs['img'])
+		bboxes_2d, one_hot_vectors = self.detector_2d.inference_verbose(inputs['img'])
 
 		print('[Server | Step2] Run frustum proposal server ...')
 		f_prop_cam_all, f_prop_velo_all = self.frt_proposal_server.get_frustum_proposal(inputs['img'].shape, bboxes_2d, inputs['pclds'])

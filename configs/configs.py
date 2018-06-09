@@ -1,21 +1,19 @@
 import numpy as np
 import os
 
-BASE_SERVER = {
-	'input_tensor_names': ['image_tensor:0'],
-	'output_tensor_names': ['detection_boxes:0', 'detection_scores:0', 'detection_classes:0', 'num_detections:0'],
-	'device': '/gpu:0'
-}
-
 BASE_PATH = '/'.join(os.getcwd().split('/')[:-1])
-DETECTOR_2D_MODEL_FP = '{}/pretrained/ssd_mobilenet_v1_coco_11_06_2017/frozen_inference_graph.pb'.format(BASE_PATH)
-LABEL_FP_2D = '{}/configs/label.pbtxt'.format(BASE_PATH)
-DETECTOR_3D_MODEL_FP = '{}/pretrained/log_v1/model.ckpt'.format(BASE_PATH)
-
+####################################################################
+# Configurations for test/demo images/points cloud/calibration params
+####################################################################
 TEST_DATA_FP = {
 	'img': '{}/example_data/1.png'.format(BASE_PATH),
 	'pclds': '{}/example_data/1.bin'.format(BASE_PATH)
 }
+
+
+####################################################################
+# Configurations for Main Server
+####################################################################
 
 # STUB PARAM
 CALIB_PARAM = {
@@ -24,7 +22,32 @@ CALIB_PARAM = {
 	'R0_rect': (9.999128000000e-01, 1.009263000000e-02, -8.511932000000e-03, -1.012729000000e-02, 9.999406000000e-01, -4.037671000000e-03, 8.470675000000e-03, 4.123522000000e-03, 9.999556000000e-01)
 }
 
+####################################################################
+# Configurations for BASE_SERVER Template
+####################################################################
+
+
+BASE_SERVER = {
+	'input_tensor_names': ['image_tensor:0'],
+	'output_tensor_names': ['detection_boxes:0', 'detection_scores:0', 'detection_classes:0', 'num_detections:0'],
+	'device': '/gpu:0'
+}
+
+
+####################################################################
+# Configurations or 2D Detector
+####################################################################
+DETECTOR_2D_MODEL_FP = '{}/pretrained/ssd_mobilenet_v1_coco_11_06_2017/frozen_inference_graph.pb'.format(BASE_PATH)
+LABEL_FP_2D = '{}/configs/label.pbtxt'.format(BASE_PATH)
+DETECTOR_2D_NUM_CLASSES = 90
 DETECTOR_2D_FEED_IMG_SIZE = 320
+DETECTOR_2D_ONE_HOT_VECTOR_MAP = {'car': 0, 'person': 1, 'bicycle': 2}
+
+
+####################################################################
+# Configurations for 3D Detector
+####################################################################
+DETECTOR_3D_MODEL_FP = '{}/pretrained/log_v1/model.ckpt'.format(BASE_PATH)
 
 FPNET = {
 	'BATCH_SIZE': 1,
@@ -33,7 +56,6 @@ FPNET = {
 	'NUM_SIZE_CLUSTER': 8,
 	'NUM_OBJECT_POINT': 512
 }
-
 
 # FPNET labels
 g_type2class={'Car':0, 'Van':1, 'Truck':2, 'Pedestrian':3, 'Person_sitting':4, 'Cyclist':5, 'Tram':6, 'Misc':7}

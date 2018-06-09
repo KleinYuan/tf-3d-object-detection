@@ -1,5 +1,5 @@
 import tensorflow as tf
-import frustum_pointnets_v1 as fp_nets
+import _frustum_pointnets_v1 as fp_nets
 from configs import configs
 
 tf.logging.set_verbosity(tf.logging.INFO)

@@ -4,7 +4,6 @@ Author: Charles R. Qi
 Date: November 2017
 """
 
-import numpy as np
 import tensorflow as tf
 
 def _variable_on_cpu(name, shape, initializer, use_fp16=False):
